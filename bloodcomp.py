@@ -12,6 +12,7 @@ b_comp = {"A": ["A", "C"],
           "W": ["A", "Z", "B", "Y", "C", "X", "O", "W"]}
 last_patient = ""
 total = 0
+output = False
 
 
 # Checks blood compatibility between two persons
@@ -34,14 +35,19 @@ def get_compatibility(combination):
     if check_compatibility(p1_blood, p2_blood):
         if last_patient != patient1:
             last_patient = patient1
-            print("\nPatient", patient1, "can donate to:")
-        print(patient2, "\n")
+            if output:
+                print("\nPatient", patient1, "can donate to:")
+        if output:
+            print(patient2)
 
 
 # Gets all combinations without repetition of the given persons
-def get_combinations(persons):
+def get_combinations(persons, out):
     global total
+    global output
+    if out:
+        output = True
     for comb in combinations(persons, 2):
         total = total + 1
         get_compatibility(comb)
-    print("Total combinations:", total)
+    print("\nTotal combinations:", total)
